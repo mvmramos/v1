@@ -1,29 +1,29 @@
-These files contain definitions and proof scripts related to the correctness of:
+These files contain definitions and proof scripts related to the correctness of (i) closure properties for context-free languages (ii) simplification of context-free grammars (iii) Chomsky normalization of context-free grammars and (iv) pumping lemma for context-free languages.
 
 File list:
 
-allrules.v: generates all rules over a given alphabet;
-cfg.v: definitions and basic lemmas regarding context-free grammars and derivations;
-cfl.v: definitions and basic lemmas regarding context-free languages;
-chomsky.v: Chomsky grammar normalization;
-closure.v: closure of context-free languages over Kleene star;
-concatenation.v: closure of context-free languages over concatenation;
-emptyrules.v: elimination of empty rules in a context-free grammar;
-inaccessible.v: elimination of inaccessible symbols in a context-free grammar;
-misc_arith.v: generic arithmetic related lemmas;
-misc_list.v: generic list lemmas;
-misc_logic: generic logic lemmas;
-pigeon.v: pigeonhole principle;
-pumping: pumpng lemma for context-free languages;
-simplification.v: unification of all previous results.
-trees.v: binary trees and their relation to Chomsky grammars;
-union.v: closure of context-free languages over union;
-unitrules.v: elimination of unit rules in a context-free grammar;
-useless.v: elimination of useless symbols in a context-free grammar;
+- allrules.v: generates all rules over a given alphabet;
+- cfg.v: definitions and basic lemmas regarding context-free grammars and derivations;
+- cfl.v: definitions and basic lemmas regarding context-free languages;
+- chomsky.v: Chomsky grammar normalization;
+- closure.v: closure of context-free languages over Kleene star;
+- concatenation.v: closure of context-free languages over concatenation;
+- emptyrules.v: elimination of empty rules in a context-free grammar;
+- inaccessible.v: elimination of inaccessible symbols in a context-free grammar;
+- misc_arith.v: generic arithmetic related lemmas;
+- misc_list.v: generic list lemmas;
+- misc_logic: generic logic lemmas;
+- pigeon.v: pigeonhole principle;
+- pumping: pumpng lemma for context-free languages;
+- simplification.v: unification of all previous results.
+- trees.v: binary trees and their relation to Chomsky grammars;
+- union.v: closure of context-free languages over union;
+- unitrules.v: elimination of unit rules in a context-free grammar;
+- useless.v: elimination of useless symbols in a context-free grammar;
 
 To compile use, download all files and:
-coq_makefile -f > _makefile
-make -f _makefile
+(i) coq_makefile -f > _makefile
+(ii) make -f _makefile
 
 These files have been created and compiled with the Coq Proof Assistant, version 8.4pl4 (June 2014).
 
