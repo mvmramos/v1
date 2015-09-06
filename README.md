@@ -1,4 +1,9 @@
-These files contain definitions and proof scripts related to the correctness of (i) closure properties for context-free languages (ii) simplification of context-free grammars (iii) Chomsky normalization of context-free grammars and (iv) pumping lemma for context-free languages.
+These files contain definitions and proof scripts related to the correctness of:
+
+- closure properties for context-free languages;
+- simplification of context-free grammars;
+- Chomsky normalization of context-free grammars and
+- Pumping Lemma for context-free languages.
 
 File list:
 
