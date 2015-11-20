@@ -35,4 +35,5 @@ The files have been created and compiled with the Coq Proof Assistant, version 8
 More information can be found in thesis "Formalization of Context-Free Language Theory", submitted to the Informatics Center of the Pernambuco Federal University (CIn/UFPE) in Brazil.
 
 Marcus Vinícius Midena Ramos
+
 mvmramos@gmail.com
