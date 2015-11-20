@@ -1,13 +1,21 @@
 (* ---------------------------------------------------------------------
-   This file contains definitions and proof scripts related to 
+
+   This file is part of a repository containing the definitions and 
+   proof scripts related to the formalization of context-free language
+   theory in Coq. Specifically, the following results were obtained:
+   
    (i) closure operations for context-free grammars, 
    (ii) context-free grammars simplification 
    (iii) context-free grammar Chomsky normalization and 
    (iv) pumping lemma for context-free languages.
    
-   More information can be found in the paper "Formalization of the
-   pumping lemma for context-free languages", submitted to
-   LATA 2016.
+   More information can be found in thesis "Formalization of 
+   Context-Free Language Theory", submitted to the Informatics
+   Center of the Pernambuco Federal University (CIn/UFPE) in
+   Brazil.
+   
+   The file README.md descbrides the contents of each file and 
+   provides instructions to compile them.
    
    Marcus Vinícius Midena Ramos
    mvmramos@gmail.com
@@ -576,55 +584,6 @@ induction n0.
   specialize (IHn0 H7 H9 H6).
   exact IHn0.  
 Qed.
-
-(*
-Lemma cnf_derives_not_empty_v2:
-forall g: cfg _ _,
-forall s1 s2: sf,
-is_cnf g \/ is_cnf_with_empty_rule g ->
-start_symbol_not_in_rhs g ->
-~ In (inl (start_symbol g)) s1 ->
-s1 <> [] ->
-derives g s1 s2 ->
-s2 <> [].
-Proof.
-intros g s1 s2 H1 H2 H3 H4 H5.
-destruct s1.
-- destruct H3.
-  destruct H4.
-  reflexivity.
-- change (s :: s1) with ([s] ++ s1) in H5.
-  apply derives_split in H5.
-  destruct H5 as [s1' [s2' [H5 [H6 H7]]]].
-  destruct s. 
-  + apply cnf_derives_not_empty_v1 in H6.
-    * {
-      destruct s1'.
-      - destruct H6.
-        reflexivity.
-      - rewrite H5.
-        apply app_not_nil_inv.
-        left.
-        apply not_eq_sym.
-        apply nil_cons.
-      }
-    * exact H1.
-    * exact H2.
-    * intros H8.
-      apply H3.
-      rewrite H8.
-      simpl.
-      left.
-      reflexivity.
-  + change [inr t] with (map (@inr non_terminal terminal) [t]) in H6.
-    apply derives_sentence_left in H6.
-    rewrite H6 in H5.
-    rewrite H5.
-    simpl.
-    apply not_eq_sym.
-    apply nil_cons.
-Qed.
-*)
 
 Lemma is_cnf_right_formats_v2:
 forall g: cfg non_terminal' terminal,
