@@ -32,6 +32,6 @@ To compile, download all files and:
 
 These files have been created and compiled with the Coq Proof Assistant, version 8.4pl4 (June 2014).
 
-More information can be found in the paper "Formalization of the pumping lemma for context-free languages", submitted to LFCS 2016 by Marcus Vinícius Midena Ramos, Ruy J. G. B. de Queiroz, Nelma Moreira and José Carlos Bacelar Almeida.
+More information can be found in the paper "Formalization of the pumping lemma for context-free languages", submitted to LATA 2016 by Marcus Vinícius Midena Ramos, Ruy J. G. B. de Queiroz, Nelma Moreira and José Carlos Bacelar Almeida.
 
 mvmramos@gmail.com
