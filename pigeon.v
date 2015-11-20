@@ -1,13 +1,21 @@
 (* ---------------------------------------------------------------------
-   This file contains definitions and proof scripts related to 
+
+   This file is part of a repository containing the definitions and 
+   proof scripts related to the formalization of context-free language
+   theory in Coq. Specifically, the following results were obtained:
+   
    (i) closure operations for context-free grammars, 
    (ii) context-free grammars simplification 
    (iii) context-free grammar Chomsky normalization and 
    (iv) pumping lemma for context-free languages.
    
-   More information can be found in the paper "Formalization of the
-   pumping lemma for context-free languages", submitted to
-   LATA 2016.
+   More information can be found in thesis "Formalization of 
+   Context-Free Language Theory", submitted to the Informatics
+   Center of the Pernambuco Federal University (CIn/UFPE) in
+   Brazil.
+   
+   The file README.md descbrides the contents of each file and 
+   provides instructions to compile them.
    
    Marcus Vinícius Midena Ramos
    mvmramos@gmail.com
