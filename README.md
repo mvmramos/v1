@@ -26,7 +26,7 @@ File list:
 - unitrules.v: elimination of unit rules in a context-free grammar;
 - useless.v: elimination of useless symbols in a context-free grammar;
 
-To compile use, download all files and:
+To compile, download all files and:
 - coq_makefile *.v > _makefile
 - make -f _makefile
 
