@@ -1,13 +1,21 @@
 (* ---------------------------------------------------------------------
-   This file contains definitions and proof scripts related to 
+
+   This file is part of a repository containing the definitions and 
+   proof scripts related to the formalization of context-free language
+   theory in Coq. Specifically, the following results were obtained:
+   
    (i) closure operations for context-free grammars, 
    (ii) context-free grammars simplification 
    (iii) context-free grammar Chomsky normalization and 
    (iv) pumping lemma for context-free languages.
    
-   More information can be found in the paper "Formalization of the
-   pumping lemma for context-free languages", submitted to
-   LATA 2016.
+   More information can be found in thesis "Formalization of 
+   Context-Free Language Theory", submitted to the Informatics
+   Center of the Pernambuco Federal University (CIn/UFPE) in
+   Brazil.
+   
+   The file README.md descbrides the contents of each file and 
+   provides instructions to compile them.
    
    Marcus Vinícius Midena Ramos
    mvmramos@gmail.com
@@ -70,7 +78,7 @@ Inductive g_unit_rules (g: cfg _ _): non_terminal -> sf -> Prop :=
        right <> [inl c]) -> 
        g_unit_rules g a right.
 
-Lemma unit_exists_right:
+Lemma unit_exists:
 forall g: cfg _ _,
 forall a b: non_terminal,
 unit g a b ->
@@ -81,19 +89,6 @@ induction H.
 - exists [inl b].
   exact H.
 - exact IHunit1.
-Qed.
-
-Lemma unit_exists_left:
-forall g: cfg _ _,
-forall a c: non_terminal,
-unit g a c ->
-exists b : non_terminal, rules g a [inl b].
-Proof.
-intros g a c H.
-induction H.
-- exists b.
-  exact H.
-- exact IHunit1. 
 Qed.
 
 Lemma g_unit_finite:
@@ -130,7 +125,7 @@ split.
       - exact H6.
       }
   + subst.
-    apply unit_exists_right in H.
+    apply unit_exists in H.
     destruct H as [c H4].
     split.
     * specialize (H1 b right H0).
