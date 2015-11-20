@@ -1,4 +1,4 @@
-These files contain definitions and proof scripts related to the correctness of:
+This repository containing the definitions and proof scripts related to the formalization of context-free language theory in Coq. The files in it contain the definitions, statements and proof scripts related to the correctness of:
 
 - closure properties for context-free languages;
 - simplification of context-free grammars;
@@ -7,7 +7,7 @@ These files contain definitions and proof scripts related to the correctness of:
 
 File list:
 
-- allrules.v: generates all rules over a given alphabet;
+- allrules.v: generates all sentential forms over a given alphabet uo to a certain length;
 - cfg.v: definitions and basic lemmas regarding context-free grammars and derivations;
 - cfl.v: definitions and basic lemmas regarding context-free languages;
 - chomsky.v: Chomsky grammar normalization;
@@ -30,8 +30,9 @@ To compile, download all files and:
 - coq_makefile *.v > _makefile
 - make -f _makefile
 
-These files have been created and compiled with the Coq Proof Assistant, version 8.4pl4 (June 2014).
+The files have been created and compiled with the Coq Proof Assistant, version 8.4pl4 (June 2014).
 
-More information can be found in the paper "Formalization of the pumping lemma for context-free languages", submitted to LATA 2016 by Marcus Vinícius Midena Ramos, Ruy J. G. B. de Queiroz, Nelma Moreira and José Carlos Bacelar Almeida.
+More information can be found in thesis "Formalization of Context-Free Language Theory", submitted to the Informatics Center of the Pernambuco Federal University (CIn/UFPE) in Brazil.
 
+Marcus Vinícius Midena Ramos
 mvmramos@gmail.com
