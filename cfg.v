@@ -1,13 +1,21 @@
 (* ---------------------------------------------------------------------
-   This file contains definitions and proof scripts related to 
+
+   This file is part of a repository containing the definitions and 
+   proof scripts related to the formalization of context-free language
+   theory in Coq. Specifically, the following results were obtained:
+   
    (i) closure operations for context-free grammars, 
    (ii) context-free grammars simplification 
    (iii) context-free grammar Chomsky normalization and 
    (iv) pumping lemma for context-free languages.
    
-   More information can be found in the paper "Formalization of the
-   pumping lemma for context-free languages", submitted to
-   LATA 2016.
+   More information can be found in thesis "Formalization of 
+   Context-Free Language Theory", submitted to the Informatics
+   Center of the Pernambuco Federal University (CIn/UFPE) in
+   Brazil.
+   
+   The file README.md descbrides the contents of each file and 
+   provides instructions to compile them.
    
    Marcus Vinícius Midena Ramos
    mvmramos@gmail.com
@@ -203,48 +211,6 @@ Inductive sflist2 (g: cfg): list sf -> Prop:=
                 l <> [] -> sflist2 g l -> last l [] = s1 ->
                 derives g s1 s2 ->
                 sflist2 g (l ++ [s2]).
-
-Inductive sflist3 (g: cfg): list sf -> Prop:=
-| sflist3_empty: sflist3 g []
-| sflist3_start: forall s: sf, 
-                 sflist3 g [s]
-| sflist3_step: forall l: list sf,
-                forall s1 s2: sf,
-                forall left: non_terminal,
-                forall right: sf,
-                sflist3 g l -> hd [] l = (s1 ++ right ++ s2) ->
-                rules g left right ->
-                sflist3 g ([s1 ++ (inl left) :: s2] ++ l).
-
-Inductive sflist4 (g: cfg): list sf -> Prop:=
-| sflist4_empty: sflist4 g []
-| sflist4_start: forall s: sf, 
-                 sflist4 g [s]
-| sflist4_step: forall l: list sf,
-                forall s1 s2: sf,
-                l <> [] -> sflist4 g l -> hd [] l = s2 ->
-                derives g s1 s2 ->
-                sflist4 g ([s1] ++ l).
-
-Inductive sflist5 (g: cfg): list sf -> Prop:=
-| sflist5_empty: sflist5 g []
-| sflist5_start: forall s: sf, 
-                 sflist5 g [s]
-| sflist5_step: forall l: list sf,
-                forall s1 s2: sf,
-                l <> [] -> sflist5 g l -> last l [] = s1 ->
-                derives_direct g s1 s2 ->
-                sflist5 g (l ++ [s2]).
-
-Inductive sflist6 (g: cfg): list sf -> Prop:=
-| sflist6_empty: sflist6 g []
-| sflist6_start: forall s: sf, 
-                 sflist6 g [s]
-| sflist6_step: forall l: list sf,
-                forall s1 s2: sf,
-                sflist6 g l -> hd [] l = s2 ->
-                derives_direct g s1 s2 ->
-                sflist6 g ([s1] ++ l).
 
 End ContextFreeGrammars_Definitions.
 
@@ -3076,171 +3042,6 @@ induction H as [ | s | l s1 s2 H0 H1 IH H2 H3].
         }
 Qed.
 
-Lemma sflist_equiv_sflist3:
-forall g: cfg _ _,
-forall l: list sf,
-sflist g l <-> sflist3 g l.
-Proof.
-intros g l.
-split.
-- induction l.
-  + intros H.
-    constructor.
-  + intros H.
-    assert (H':= H).
-    change (a :: l) with ([a] ++ l) in H.
-    apply sflist_app in H.
-    destruct H as [_ H].
-    specialize (IHl H).
-    clear H.
-    assert (H1: length (a :: l) >= 2 \/ length (a :: l) = 1).
-      {
-      destruct l.
-      - right.
-        simpl.
-        reflexivity.
-      - left.
-        simpl. 
-        omega.
-      }
-    destruct H1 as [H1 | H1].
-    * apply sflist_rules with (g:= g) in H1.
-      destruct H1 as [H1 _].
-      specialize (H1 H' 0).
-      assert (H2: 0 <= length (a :: l) - 2).    
-        {
-        apply le_0_n.
-        }   
-      specialize (H1 H2).
-      clear H2.
-      destruct H1 as [left [right [s [s' [H2 [H3 H4]]]]]].
-      simpl in H2.
-      {
-      destruct l.
-      - constructor.
-      - simpl in H3.
-        change (a :: l:: l0) with ([a] ++ [l] ++ l0).
-        rewrite H2.
-        rewrite H3.
-        apply sflist3_step with (right:= right).
-        + rewrite H3 in IHl. 
-          exact IHl.
-        + simpl. 
-          reflexivity.
-        + exact H4.
-      }
-    * apply length_cons_eq_1 in H1.
-      subst.
-      constructor.
-- intros H.
-  induction H.
-  + constructor.
-  + constructor.
-  + destruct l.
-    * simpl. 
-      constructor.
-    * simpl in H0.
-      rewrite H0.
-      rewrite H0 in IHsflist3.
-      apply sflist_cat.
-      {
-      split.
-      - apply sflist_step with (left:= left).
-        + constructor.
-        + simpl. 
-          reflexivity.
-        + exact H1.
-      - exact IHsflist3. 
-      }
-Qed.
-
-Lemma sflist_equiv_sflist5:
-forall g: cfg _ _,
-forall l: list sf,
-sflist g l <-> sflist5 g l.
-Proof.
-intros g l.
-split.
-- intros H.
-  induction H.
-  + apply sflist5_empty.
-  + apply sflist5_start.
-  + apply sflist5_step with (s1:= s2 ++ inl left :: s3).
-    * assert (H2: last l [] <> []).
-        {
-        rewrite H0.
-        apply not_eq_sym.
-        apply app_cons_not_nil.
-        }
-      apply last_not_nil in H2.
-      exact H2.
-    * exact IHsflist.
-    * exact H0.
-    * unfold derives_direct.
-      exists s2, s3, left, right.
-      auto.
-- intros H.
-  induction H.
-  + apply sflist_empty.
-  + apply sflist_start.
-  + unfold derives_direct in H2. 
-    destruct H2 as [s' [s'' [left [right [H4 [H5 H6]]]]]].
-    rewrite H5. 
-    apply sflist_step with (left:= left).
-    * exact IHsflist5.
-    * rewrite H1.
-      exact H4.
-    * exact H6.
-Qed.
-
-Lemma sflist3_equiv_sflist6:
-forall g: cfg _ _,
-forall l: list sf,
-sflist3 g l <-> sflist6 g l.
-Proof.
-intros g l.
-split.
-- intros H.
-  induction H.
-  + apply sflist6_empty.
-  + apply sflist6_start.
-  + apply sflist6_step with (s2:= s1 ++ right ++ s2).
-    * exact IHsflist3.
-    * exact H0.
-    * unfold derives_direct.
-      exists s1, s2, left, right.
-      auto.
-- intros H.
-  induction H.
-  + apply sflist3_empty.
-  + apply sflist3_start.
-  + unfold derives_direct in H1. 
-    destruct H1 as [s' [s'' [left [right [H4 [H5 H6]]]]]].
-    rewrite H4. 
-    apply sflist3_step with (right:= right).
-    * exact IHsflist6.
-    * rewrite H5 in H0.
-      exact H0.
-    * exact H6.
-Qed.
-
-Lemma sflist_equiv_sflist6:
-forall g: cfg _ _,
-forall l: list sf,
-sflist g l <-> sflist6 g l.
-Proof.
-intros g l.
-split.
-- intros H.
-  rewrite <- sflist3_equiv_sflist6.
-  apply sflist_equiv_sflist3.
-  exact H.
-- intros H.
-  rewrite <- sflist3_equiv_sflist6 in H.
-  apply sflist_equiv_sflist3.
-  exact H.
-Qed.
-
 Lemma exists_rule:
 forall g: cfg _ _,
 forall n: non_terminal,
@@ -4563,30 +4364,6 @@ split.
   + apply H2.
     apply not_eq_sym.
     apply nil_cons.
-Qed.
-
-Lemma sflist_sentence:
-forall g: cfg non_terminal terminal,
-forall s: sentence,
-forall l1 l2: slist,
-sflist g (l1 ++ (map term_lift s) :: l2) ->
-l2 = [].
-Proof.
-destruct l2.
-- intros _.
-  reflexivity.
-- intros H.
-  apply sflist_app in H.
-  destruct H as [_ H].
-  rewrite sflist_equiv_sflist3 in H.
-  inversion H.
-  apply map_expand in H0.
-  destruct H0 as [s1' [s2' [H5 [H6 H7]]]].
-  symmetry in H5.
-  destruct s2'.
-  + inversion H7.
-  + simpl in H7.
-    inversion H7.
 Qed.
 
 Lemma not_derives_start_symbol:
