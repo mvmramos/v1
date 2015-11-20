@@ -1,13 +1,21 @@
 (* ---------------------------------------------------------------------
-   This file contains definitions and proof scripts related to 
+
+   This file is part of a repository containing the definitions and 
+   proof scripts related to the formalization of context-free language
+   theory in Coq. Specifically, the following results were obtained:
+   
    (i) closure operations for context-free grammars, 
    (ii) context-free grammars simplification 
    (iii) context-free grammar Chomsky normalization and 
    (iv) pumping lemma for context-free languages.
    
-   More information can be found in the paper "Formalization of the
-   pumping lemma for context-free languages", submitted to
-   LATA 2016.
+   More information can be found in thesis "Formalization of 
+   Context-Free Language Theory", submitted to the Informatics
+   Center of the Pernambuco Federal University (CIn/UFPE) in
+   Brazil.
+   
+   The file README.md descbrides the contents of each file and 
+   provides instructions to compile them.
    
    Marcus Vinícius Midena Ramos
    mvmramos@gmail.com
@@ -888,11 +896,6 @@ Notation sentence:= (list terminal).
 Inductive l_cat (l1 l2: lang terminal): lang terminal:=
 | l_cat_app: forall s1 s2: sentence, l1 s1 -> l2 s2 -> l_cat l1 l2 (s1 ++ s2).
 
-(*
-Definition l_cat (l1 l2: lang terminal): lang terminal:=
-fun s: sentence => exists s1 s2: sentence, s = s1 ++ s2 /\ l1 s1 /\ l2 s2.
-*)
-
 Lemma map_cat_1:
 forall s: sentence,
 map (@g_cat_sf_lift1 non_terminal_1 non_terminal_2 terminal) (map (@terminal_lift non_terminal_1 terminal) s) =
@@ -1121,7 +1124,7 @@ apply l_cat_app.
 - exact H2.
 Qed.
 
-Theorem l_uni_correct_inv:
+Theorem l_cat_correct_inv:
 forall l1 l2: lang terminal,
 forall s: sentence,
 (l_cat l1 l2) s -> 
