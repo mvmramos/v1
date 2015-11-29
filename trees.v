@@ -20,7 +20,7 @@
    Marcus Vinícius Midena Ramos
    mvmramos@gmail.com
    --------------------------------------------------------------------- *)
-   
+
 Require Import misc_arith.
 Require Import misc_list.
 Require Import misc_logic.
@@ -414,6 +414,33 @@ match t with
 | bnode_2 n t1 t2 => S ((bnodes t1) + (bnodes t2))
 end.
 
+Lemma bfrontier_min:
+forall t: btree,
+length (bfrontier t) >= bheight t.
+Proof.
+induction t.
+- simpl.
+  omega.
+- simpl.
+  rewrite app_length.
+  assert (H: bheight t1 >= bheight t2 \/ bheight t1 <= bheight t2) by omega.
+  destruct H as [H | H].
+  + apply max_l in H.
+    rewrite H.
+    assert (H2: length (bfrontier t2) >= 1).
+      {
+      apply bfrontier_ge_1. 
+      }
+    omega.
+  + apply max_r in H.
+    rewrite H.
+    assert (H2: length (bfrontier t1) >= 1).
+      {
+      apply bfrontier_ge_1. 
+      }
+    omega.
+Qed.
+
 Lemma bfrontier_max:
 forall t: btree,
 length (bfrontier t) <= 2 ^ ((bheight t) - 1).
@@ -473,6 +500,17 @@ induction t.
       }
     rewrite H5 in H3.
     exact H3.
+Qed.
+
+Lemma bfrontier_min_max:
+forall t: btree,
+length (bfrontier t) >= bheight t /\
+length (bfrontier t) <= 2 ^((bheight t) - 1).
+Proof.
+intros t.
+split.
+- apply bfrontier_min.
+- apply bfrontier_max.
 Qed.
 
 Lemma bheight_eq:
@@ -609,6 +647,28 @@ apply length_bfrontier_ge.
 replace (i + 1 - 1) with i.
 - exact H2.
 - omega. 
+Qed.
+
+Lemma length_ge_v2:
+forall t: btree,
+forall s: list terminal,
+forall i: nat,
+i >= 1 ->
+bfrontier t = s ->
+length s >= 2 ^ (i - 1) + 1 -> 
+bheight t >= (i + 1).
+Proof.
+intros t s i H1 H2.
+assert (H3: bheight t <= i -> length (bfrontier t) <= 2 ^ (i - 1)).
+  {
+  apply bheight_le.
+  }
+intros H4.
+apply contrap in H3.
+- omega.
+- intros H5.
+  rewrite <- H2 in H4.
+  omega.
 Qed.
 
 Lemma length_gt:
