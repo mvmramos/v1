@@ -55,5 +55,8 @@ Notation sentence := (list terminal).
 Notation nlist:= (list non_terminal).
 
 Definition sf1: sf:= [inr a; inl X; inl Y; inr b].
+Definition sf2: sf:= [].
 Definition sentence1: sentence:= [a; a; b; c].
+Definition sentence2: sentence:= [].
 Definition nlist1: nlist:= [Z; Z; X].
+Definition nlist2: nlist:= [].
