@@ -863,7 +863,7 @@ Variables non_terminal terminal: Type.
 
 Notation sentence:= (list terminal).
 
-Theorem g_simpl_exists_v1:
+Theorem g_simpl_ex_v1:
 forall g: cfg non_terminal terminal,
  non_empty g ->
  exists g': cfg (non_terminal' non_terminal) terminal,
@@ -960,7 +960,7 @@ split.
       }
 Qed.
 
-Theorem g_simpl_exists_v2:
+Theorem g_simpl_ex_v2:
 forall g: cfg non_terminal terminal,
 (exists s: sentence, produces g s /\ s <> [] ) ->
  exists g': cfg (non_terminal' non_terminal) terminal,
