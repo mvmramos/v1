@@ -188,7 +188,7 @@ destruct H3 as [g H3].
 (* Find g' in CNF *)
 assert (H2: exists g': cfg (chomsky.non_terminal' (emptyrules.non_terminal' non_terminal) terminal) terminal, (g_equiv g' g) /\ (is_cnf g' \/ is_cnf_with_empty_rule g') /\ start_symbol_not_in_rhs g').
   {
-  apply g_cnf_exists.
+  apply g_cnf_ex.
   destruct H1 as [H1 H2].
   split.
   - destruct H1 as [H1 | H1].
@@ -624,7 +624,7 @@ destruct H3 as [g H3].
 (* Find g' in CNF *)
 assert (H2: exists g': cfg (chomsky.non_terminal' (emptyrules.non_terminal' non_terminal) terminal) terminal, (g_equiv g' g) /\ (is_cnf g' \/ is_cnf_with_empty_rule g') /\ start_symbol_not_in_rhs g').
   {
-  apply g_cnf_exists.
+  apply g_cnf_ex.
   destruct H1 as [H1 H2].
   split.
   - destruct H1 as [H1 | H1].
