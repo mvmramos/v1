@@ -1593,7 +1593,7 @@ assert (H3: exists s: sentence, produces g s /\ s <> []).
   exists s.
   exact (conj H2 H1).
   }
-apply g_simpl_exists_v2 in H3.
+apply g_simpl_ex_v2 in H3.
 destruct H3 as [g' [H3 [_ [_ [H4 [H5 _]]]]]].
 exists g'.
 exact (conj H3 (conj H5 H4)).
@@ -1984,7 +1984,7 @@ Notation ntlist':= (list ((non_terminal' non_terminal) terminal)).
 Notation tlist:= (list terminal).
 Notation sentence:= (list terminal).
 
-Lemma g_cnf_exists_v1:
+Lemma g_cnf_ex_v1:
 forall g: cfg non_terminal terminal,
 ~ produces_empty g ->
 produces_non_empty g ->
@@ -1993,7 +1993,7 @@ exists g': cfg (non_terminal' (emptyrules.non_terminal' non_terminal) terminal) 
 Proof.
 intros g H0 H.
 apply produces_non_empty_equiv_non_empty in H.
-apply g_simpl_exists_v1 in H.
+apply g_simpl_ex_v1 in H.
 destruct H as [g' [H1 [H2 [H3 [H4 [H5 [H6 H7]]]]]]].
 assert (H8: g_equiv (g_cnf g') g <-> g_equiv (g_cnf g') g' /\ g_equiv g' g).
   {
@@ -2040,7 +2040,7 @@ split.
      exact H7.
 Qed.
 
-Lemma g_cnf_exists_v2:
+Lemma g_cnf_ex_v2:
 forall g: cfg non_terminal terminal,
 produces_empty g -> 
 produces_non_empty g ->
@@ -2048,7 +2048,7 @@ exists g': cfg (non_terminal' (emptyrules.non_terminal' non_terminal) terminal) 
 (g_equiv g' g /\ is_cnf_with_empty_rule g' /\ start_symbol_not_in_rhs g').
 Proof.
 intros g H0 H1.
-apply g_simpl_exists_v2 in H1.
+apply g_simpl_ex_v2 in H1.
 destruct H1 as [g' [H1 [H2 [H3 [H4 [H5 H6]]]]]].
 exists (g_cnf' g').
 split.
@@ -2083,7 +2083,7 @@ split.
     exact H6.
 Qed.
 
-Lemma g_cnf_exists_v3:
+Lemma g_cnf_ex_v3:
 forall g: cfg non_terminal terminal,
 produces_empty g -> 
 ~ produces_non_empty g ->
@@ -2194,7 +2194,7 @@ split.
     contradiction. 
 Qed.
 
-Lemma g_cnf_exists_v4:
+Lemma g_cnf_ex_v4:
 forall g: cfg non_terminal terminal,
 ~ produces_empty g -> 
 ~ produces_non_empty g ->
@@ -2265,7 +2265,7 @@ split.
     inversion H2.
 Qed.
 
-Theorem g_cnf_exists:
+Theorem g_cnf_ex:
 forall g: cfg non_terminal terminal,
 (produces_empty g \/ ~ produces_empty g) /\ (produces_non_empty g \/ ~ produces_non_empty g) ->
 exists g': cfg (non_terminal' (emptyrules.non_terminal' non_terminal) terminal) terminal, 
@@ -2275,7 +2275,7 @@ intros g [Ha Hb].
 destruct Ha, Hb.
 - assert (H2: exists g': cfg (non_terminal' (emptyrules.non_terminal' non_terminal) terminal) terminal, g_equiv g' g /\ is_cnf_with_empty_rule g' /\ start_symbol_not_in_rhs g').
     {
-    apply g_cnf_exists_v2.
+    apply g_cnf_ex_v2.
     - exact H.
     - exact H0.
     }
@@ -2289,7 +2289,7 @@ destruct Ha, Hb.
     * exact H4.
 - assert (H2: exists g': cfg (non_terminal' (emptyrules.non_terminal' non_terminal) terminal) terminal, g_equiv g' g /\ is_cnf_with_empty_rule g' /\ start_symbol_not_in_rhs g').
     {
-    apply g_cnf_exists_v3.
+    apply g_cnf_ex_v3.
     - exact H.
     - exact H0.
     }
@@ -2303,7 +2303,7 @@ destruct Ha, Hb.
     * exact H4.
 - assert (H2: exists g': cfg (non_terminal' (emptyrules.non_terminal' non_terminal) terminal) terminal, g_equiv g' g /\ is_cnf g' /\ start_symbol_not_in_rhs g').
     {
-    apply g_cnf_exists_v1.
+    apply g_cnf_ex_v1.
     - exact H.
     - exact H0.
     }
@@ -2317,7 +2317,7 @@ destruct Ha, Hb.
     * exact H4.
 - assert (H2: exists g': cfg (non_terminal' (emptyrules.non_terminal' non_terminal) terminal) terminal, g_equiv g' g /\ is_cnf g' /\ start_symbol_not_in_rhs g').
     {
-    apply g_cnf_exists_v4.
+    apply g_cnf_ex_v4.
     - exact H.
     - exact H0.
     }
