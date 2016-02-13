@@ -252,7 +252,7 @@ apply lang_eq_change_g with (non_terminal':= chomsky.non_terminal' (emptyrules.n
     assert (HHH:= H7).      
     * (* Find bpath *)
       {
-      apply btree_exists_bpath with (ntl:= ntl') in H7.
+      apply btree_ex_bpath with (ntl:= ntl') in H7.
       - destruct H7 as [z [H20 [H21 [m [r [t0 [H22 [H23 [H24 H25]]]]]]]]].
         assert (H26: forall s, In s r -> In s (map inl ntl')).
           {
@@ -343,7 +343,7 @@ apply lang_eq_change_g with (non_terminal':= chomsky.non_terminal' (emptyrules.n
             rewrite <- H20copy in Hpath.
             rewrite <- app_assoc in Hpath.
             (* Find subtrees and u, v, w, x, y *)
-            apply bpath_exists_bcode in H20.
+            apply bpath_ex_bcode in H20.
             destruct H20 as [c [H100 H101]].
             rewrite Hpath in H101.
             rewrite app_assoc in H101.
@@ -689,7 +689,7 @@ apply lang_eq_change_g with (non_terminal':= chomsky.non_terminal' (emptyrules.n
     assert (HHH:= H7).      
     * (* Find bpath *)
       {
-      apply btree_exists_bpath with (ntl:= ntl') in H7.
+      apply btree_ex_bpath with (ntl:= ntl') in H7.
       - destruct H7 as [z [H20 [H21 [m [r [t0 [H22 [H23 [H24 H25]]]]]]]]].
         assert (H26: forall s, In s r -> In s (map inl ntl')).
           {
@@ -780,7 +780,7 @@ apply lang_eq_change_g with (non_terminal':= chomsky.non_terminal' (emptyrules.n
             rewrite <- H20copy in Hpath.
             rewrite <- app_assoc in Hpath.
             (* Find subtrees and u, v, w, x, y *)
-            apply bpath_exists_bcode in H20.
+            apply bpath_ex_bcode in H20.
             destruct H20 as [c [H100 H101]].
             rewrite Hpath in H101.
             rewrite app_assoc in H101.
