@@ -28,7 +28,6 @@
 Require Import List.
 Require Import Ring.
 Require Import Omega.
-Require Import Program.
 
 Require Import misc_arith.
 Require Import misc_list.
@@ -618,7 +617,7 @@ destruct H1 as [H1 | H1].
     * destruct H1 as [s1 [s2 H1]].
       right.
       destruct s1, s2.
-      exists l l0.
+      exists l, l0.
       exact H1.
     * destruct H1 as [t H1].
       left.
@@ -1896,10 +1895,10 @@ inversion H.
   exists t.
   reflexivity.
 - left.
-  exists (Lift_r [s1]) (Lift_r (s2 :: beta)).
+  exists (Lift_r [s1]), (Lift_r (s2 :: beta)).
   reflexivity.
 - left.
-  exists (Lift_r [s2]) (Lift_r (s3 :: beta)).
+  exists (Lift_r [s2]), (Lift_r (s3 :: beta)).
   reflexivity.
 Qed.
 
@@ -2268,7 +2267,7 @@ Qed.
 Theorem g_cnf_ex:
 forall g: cfg non_terminal terminal,
 (produces_empty g \/ ~ produces_empty g) /\ (produces_non_empty g \/ ~ produces_non_empty g) ->
-exists g': cfg (non_terminal' (emptyrules.non_terminal' non_terminal) terminal) terminal, 
+exists g': cfg (non_terminal' (emptyrules.non_terminal' non_terminal) terminal) terminal,
 g_equiv g' g /\ (is_cnf g' \/ is_cnf_with_empty_rule g') /\ start_symbol_not_in_rhs g'.
 Proof.
 intros g [Ha Hb].
