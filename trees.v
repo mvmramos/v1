@@ -710,7 +710,7 @@ destruct t.
     omega.
 Qed.
 
-Lemma bpath_bheight_exists:
+Lemma bpath_bheight_ex:
 forall t: btree,
 exists p: sf,
 bpath t p /\
@@ -905,7 +905,7 @@ induction bt.
       }
 Qed.
 
-Lemma btree_exists_bpath:
+Lemma btree_ex_bpath:
 forall bt: btree,
 forall ntl: list non_terminal,
 bheight bt >= length ntl + 1 ->
@@ -923,7 +923,7 @@ Proof.
 intros bt ntl H1 H2.
 assert (H3: exists p: sf, bpath bt p /\ length p = bheight bt + 1).
   {
-  apply bpath_bheight_exists.
+  apply bpath_bheight_ex.
   }
 destruct H3 as [p [H3 H4]].
 exists p.
@@ -934,7 +934,7 @@ split.
   + assert (H3':= H3).
     apply bpath_last_terminal in H3.
     destruct H3 as [p' [t H3]].
-    apply ge_exists in H1. 
+    apply ge_ex in H1. 
     destruct H1 as [z H1]. 
     rewrite H1 in H4.
     clear H1.
@@ -1037,7 +1037,7 @@ destruct H3 as [H3 | H3].
   + omega.
 Qed.
 
-Lemma bpath_exists_btree:
+Lemma bpath_ex_btree:
 forall bt: btree,
 forall z1 z2: sf,
 forall n: non_terminal,
@@ -1176,7 +1176,7 @@ induction bt.
       }
 Qed. 
 
-Lemma bpath_exists_root:
+Lemma bpath_ex_root:
 forall t: btree,
 forall p: sf,
 forall d: symbol,
@@ -1251,7 +1251,7 @@ inversion H1.
   destruct p1.  
   + destruct p2.
     * simpl in H. 
-      apply bpath_exists_root with (d:= inl n) in H1.
+      apply bpath_ex_root with (d:= inl n) in H1.
       simpl in H1.
       inversion H1.
       symmetry in H5.
@@ -1267,7 +1267,7 @@ inversion H1.
   destruct p1.
   + destruct p2.
     * simpl in H.
-      apply bpath_exists_root with (d:= inl n) in H1.
+      apply bpath_ex_root with (d:= inl n) in H1.
       simpl in H1.
       inversion H1.
       symmetry in H5.
@@ -1430,7 +1430,7 @@ induction p1.
     inversion H. 
 Qed.
 
-Lemma bpath_exists_bcode:
+Lemma bpath_ex_bcode:
 forall t: btree,
 forall p: sf,
 bpath t p -> 
@@ -1492,7 +1492,7 @@ induction t.
       }
 Qed.
 
-Lemma bcode_exists_bpath:
+Lemma bcode_ex_bpath:
 forall t: btree,
 forall c: list bool,
 bcode t c -> 
@@ -4018,7 +4018,7 @@ induction n0.
       }
 Qed.
 
-Lemma btree_bpath_exists_btree_bpath:
+Lemma btree_bpath_ex_btree_bpath:
 forall g: cfg _ _,
 forall bt1: btree _ _ ,
 forall n: _,
@@ -4064,7 +4064,7 @@ induction p1.
       exact IHp1.
 Qed.
 
-Lemma btree_bpath_exists_derives:
+Lemma btree_bpath_ex_derives:
 forall g: cfg _ _,
 forall t: btree _ _,
 forall n1 n2: _,
@@ -4121,7 +4121,7 @@ induction p1.
   + change (inl n :: p1) with ([inl n] ++ p1) in H2.
     rewrite <- app_assoc in H2.
     assert (H2':= H2).
-    apply btree_bpath_exists_btree_bpath with (g:= g) in H2.
+    apply btree_bpath_ex_btree_bpath with (g:= g) in H2.
     * destruct H2 as [bt2 [H2 H3]]. 
       specialize (IHp1 bt2 n n2 p2 H2 H3).
       destruct IHp1 as [l [r IHp1]].
@@ -4214,10 +4214,10 @@ bpath t (p1 ++ [inl n] ++ p2 ++ [inl n] ++ p3) ->
 start_symbol g <> n.
 Proof.
 intros g t n p1 p2 p3 H1 H2 H3.
-apply btree_bpath_exists_btree_bpath with (g:= g) in H3.
+apply btree_bpath_ex_btree_bpath with (g:= g) in H3.
 - clear H2. 
   destruct H3 as [t' [H3 H4]].
-  apply btree_bpath_exists_derives with (g:= g) in H4.
+  apply btree_bpath_ex_derives with (g:= g) in H4.
   + destruct H4 as [l [r [H4 H5]]]. 
     apply exists_rule' in H4.
     destruct H4 as [H4 | H4].
