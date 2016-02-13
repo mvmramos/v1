@@ -78,7 +78,7 @@ destruct n.
 - omega.
 Qed.
 
-Lemma gt_zero_exists:
+Lemma gt_zero_ex:
 forall i: nat,
 i > 0 ->
 exists j: nat, i = S j.
@@ -197,7 +197,7 @@ destruct n.
     reflexivity.
 Qed.
 
-Lemma ge_exists:
+Lemma ge_ex:
 forall x y: nat,
 x >= y ->
 exists z: nat,
